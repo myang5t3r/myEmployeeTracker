@@ -10,7 +10,55 @@ const questions = {
         name: 'initalPrompt',
         message: 'What would you like to do?',
         choices: ['View all departments', 'View all roles', 'View all Employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role']
-    }]
+    }],
+    addDepartment: [{
+        type: 'input',
+        name: 'newDepartment',
+        message: "What is the name of the department"
+    }],
+    addRole: [
+        {
+        type: 'input',
+        name: 'name',
+        message: 'What is the name of the role?'
+        },
+        {
+        type: 'input',
+        name: 'salary',
+        message: 'What is the salary of the role?'
+        },
+        {
+        type: 'list',
+        name: 'department',
+        message: 'Which department does the role belong to?',
+        choices: ['Engineering', 'Sales', 'Product', 'Finance']
+        }
+    ],
+    addEmployee: [
+        {
+        type: 'input',
+        name: 'firstName',
+        message: "What is the employee's first name?"
+        },
+        {
+        type: 'input',
+        name: 'lastName',
+        message: "What is the employee's last name?"
+        },
+        {
+        type: 'input',
+        name: 'role',
+        message: "What is the employee's role?"
+        },
+        {
+        type: 'input',
+        name: 'manager',
+        message: "What is the employee's manager?"//TODO Maybe change to list of managers
+        },
+    ],
+    updateRole: [{
+
+    }],
 }
 
 //////////////          Functions               //////////////
