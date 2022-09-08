@@ -5,11 +5,11 @@ VALUES (001, "Engineering"),
        (004, "Finance");
 
 INSERT INTO role (id, title, salary, department_id)
-VALUES (001, "Senoir Software Engineer", 130000, 001), 
+VALUES (001, "Senior Software Engineer", 130000, 001), 
        (002, "Software Engineer", 100000, 001),
-       (003, "Mehancincal Engineer", 70000, 001),
-       (004, "Senoir Sales Engineer", 115000, 002 ),
-       (005, "Senoir Product Manager", 160000, 003),
+       (003, "Mechanical Engineer", 70000, 001),
+       (004, "Senior Sales Engineer", 115000, 002 ),
+       (005, "Senior Product Manager", 160000, 003),
        (006, "Associate Product Manager", 80000, 003),
        (007, "Accountant", 80000, 004),
        (008, "CPA Accountant", 120000, 004);

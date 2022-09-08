@@ -1,7 +1,7 @@
 // Import modules/dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-
+const queryDepartments = require('./lib/queries')
 
 ////////////////            Questions for inquirer          ///////////////
 const questions = {
@@ -46,18 +46,20 @@ const questions = {
         message: "What is the employee's last name?"
         },
         {
-        type: 'input',
+        type: 'list',
         name: 'role',
-        message: "What is the employee's role?"
+        message: "What is the employee's role?",
+        choices: ['Software Engineer', 'Mechanical Engineer', 'Associate Product Manager', 'Accountant'] 
         },
         {
-        type: 'input',
+        type: 'list',
         name: 'manager',
-        message: "What is the employee's manager?"//TODO Maybe change to list of managers
+        message: "Who is the employee's manager?",
+        choices: ['Matt Yang', 'Scott Lee', 'Vanessa Yang', 'Jessica Moua']
         },
     ],
     updateRole: [{
-
+        //TODO  Figure out how to dynamically add employee names to questions
     }],
 }
 
@@ -73,6 +75,8 @@ async function startPrompt(){
 
 async function viewDeparments(){
     //WHEN I choose to view all departments, THEN I am presented with a formatted table showing department names and department ids 
+    // use queary to view all deparments
+
 }
 
 async function viewRoles(){
@@ -81,6 +85,8 @@ async function viewRoles(){
 
 async function viewEmployees(){
     //WHEN I choose to view all employees, THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+    const results = await queryDepartments();
+    console.table(results)
 };
 
 async function addDepartment(){
@@ -105,6 +111,11 @@ async function init(){
     // WHEN I start the application, THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role 
     const results = await startPrompt();
     console.log(results)
+    if (results.initalPrompt === 'View all departments'){
+        await viewDeparments()
+    }
+    await startPrompt();
+    // await viewDeparments()
 }
 
 init()
