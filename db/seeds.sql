@@ -1,10 +1,10 @@
-INSERT INTO department (id, name)
+INSERT INTO departments (id, departmentName)
 VALUES (001, "Engineering"),
        (002, "Sales"),
        (003, "Product"),
        (004, "Finance");
 
-INSERT INTO role (id, title, salary, department_id)
+INSERT INTO roles (id, title, salary, department_id)
 VALUES (001, "Senior Software Engineer", 130000, 001), 
        (002, "Software Engineer", 100000, 001),
        (003, "Mechanical Engineer", 70000, 001),
@@ -15,7 +15,7 @@ VALUES (001, "Senior Software Engineer", 130000, 001),
        (008, "CPA Accountant", 120000, 004);
 
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
 VALUES (001, "Matt", "Yang", 001, NULL), 
        (002, "Scott", "Lee", 004, NULL),  
        (003, "David", "Lee", 006, 007),  

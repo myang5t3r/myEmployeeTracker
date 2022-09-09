@@ -1,7 +1,7 @@
 // Import modules/dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const queryDepartments = require('./lib/queries')
+const queryDepartments = require('./lib')
 
 ////////////////            Questions for inquirer          ///////////////
 const questions = {
@@ -9,7 +9,7 @@ const questions = {
         type: 'list',
         name: 'initalPrompt',
         message: 'What would you like to do?',
-        choices: ['View all departments', 'View all roles', 'View all Employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role']
+        choices: ['View all departments', 'View all roles', 'View all Employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
     }],
     addDepartment: [{
         type: 'input',
@@ -76,7 +76,8 @@ async function startPrompt(){
 async function viewDeparments(){
     //WHEN I choose to view all departments, THEN I am presented with a formatted table showing department names and department ids 
     // use queary to view all deparments
-
+    const results = await queryDepartments();
+    console.table(results)
 }
 
 async function viewRoles(){
@@ -85,8 +86,7 @@ async function viewRoles(){
 
 async function viewEmployees(){
     //WHEN I choose to view all employees, THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-    const results = await queryDepartments();
-    console.table(results)
+
 };
 
 async function addDepartment(){
@@ -109,13 +109,32 @@ async function updateRole(){
 ///////////////         Init function           ///////////////
 async function init(){
     // WHEN I start the application, THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role 
-    const results = await startPrompt();
-    console.log(results)
-    if (results.initalPrompt === 'View all departments'){
-        await viewDeparments()
+    let cont = true;
+    while(cont === true){
+        const results = await startPrompt();
+        switch (results.initalPrompt){
+            case 'View all departments':
+                console.log(results.initalPrompt);
+                await viewDeparments()
+                break;
+            case 'View all roles':
+                console.log(results.initalPrompt)
+                break;
+            case 'View all Employees':
+                console.log(results.initalPrompt);
+                break;
+            case 'Add a department':
+                console.log(results.initalPrompt);
+                break;
+            case 'Exit':
+                console.log(results.initalPrompt);
+                cont = false;
+                break;
+            default:
+                console.log("default");
+                break
+        }
     }
-    await startPrompt();
-    // await viewDeparments()
 }
 
 init()
