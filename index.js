@@ -1,7 +1,7 @@
 // Import modules/dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const queryDepartments = require('./lib')
+const {queryDepartments, queryEmployees, queryRoles, insertDepartment } = require('./lib/queries')
 
 ////////////////            Questions for inquirer          ///////////////
 const questions = {
@@ -64,33 +64,33 @@ const questions = {
 }
 
 //////////////          Functions               //////////////
-async function startPrompt(){
-    result = '';
-    await inquirer.prompt(questions.start)
-    .then(answer => {
-        // console.log(answer)
-        result = answer});
+// Try it with an async arrow function
+const startPrompt = async () => {
+    let result = await inquirer.prompt(questions.start);
     return result    
 };
 
 async function viewDeparments(){
-    //WHEN I choose to view all departments, THEN I am presented with a formatted table showing department names and department ids 
-    // use queary to view all deparments
     const results = await queryDepartments();
-    console.table(results)
+    console.table(results);
 }
 
 async function viewRoles(){
-    //WHEN I choose to view all roles, THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+    const results = await queryRoles();
+    console.table(results);
 };
 
 async function viewEmployees(){
     //WHEN I choose to view all employees, THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-
+    const results = await queryEmployees();
+    console.table(results);
 };
-
-async function addDepartment(){
+// practices with async arrow function
+const addDepartment = async ()=>{
     //WHEN I choose to add a department, THEN I am prompted to enter the name of the department and that department is added to the database
+    let result = await inquirer.prompt(questions.addDepartment);
+    await insertDepartment(result.newDepartment);
+    console.log('New department added');
 };
 
 async function addRole(){
@@ -114,17 +114,16 @@ async function init(){
         const results = await startPrompt();
         switch (results.initalPrompt){
             case 'View all departments':
-                console.log(results.initalPrompt);
-                await viewDeparments()
+                await viewDeparments();
                 break;
             case 'View all roles':
-                console.log(results.initalPrompt)
+                await viewRoles();
                 break;
             case 'View all Employees':
-                console.log(results.initalPrompt);
+                await viewEmployees();
                 break;
             case 'Add a department':
-                console.log(results.initalPrompt);
+                await addDepartment();
                 break;
             case 'Exit':
                 console.log(results.initalPrompt);
