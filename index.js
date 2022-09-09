@@ -1,7 +1,7 @@
 // Import modules/dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const {queryDepartments, queryEmployees, queryRoles, insertDepartment } = require('./lib/queries')
+const {queryDepartments, queryEmployees, queryRoles, insertDepartment, insertRole } = require('./lib/queries')
 
 ////////////////            Questions for inquirer          ///////////////
 const questions = {
@@ -87,14 +87,15 @@ async function viewEmployees(){
 };
 // practices with async arrow function
 const addDepartment = async ()=>{
-    //WHEN I choose to add a department, THEN I am prompted to enter the name of the department and that department is added to the database
     let result = await inquirer.prompt(questions.addDepartment);
     await insertDepartment(result.newDepartment);
     console.log('New department added');
 };
 
-async function addRole(){
-    //WHEN I choose to add a role, THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+const addRole =  async () =>{
+    let result = await inquirer.prompt(questions.addRole);
+    await insertRole(result);
+    console.log('New role added')
 };
 
 async function addEmployee(){
@@ -124,6 +125,15 @@ async function init(){
                 break;
             case 'Add a department':
                 await addDepartment();
+                break;
+            case 'Add a role':
+                await addRole();
+                break;
+            case 'Add an employee':
+                await addEmployee();
+                break;
+            case 'Update an employee role':
+                await updateRole();
                 break;
             case 'Exit':
                 console.log(results.initalPrompt);
