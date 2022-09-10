@@ -1,7 +1,7 @@
 // Import modules/dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const {queryDepartments, queryEmployees, queryRoles, insertDepartment, insertRole } = require('./lib/queries')
+const {queryDepartments, queryEmployees, queryRoles, insertDepartment, insertRole, insertEmployee } = require('./lib/queries')
 
 ////////////////            Questions for inquirer          ///////////////
 const questions = {
@@ -64,6 +64,7 @@ const questions = {
 }
 
 //////////////          Functions               //////////////
+
 // Try it with an async arrow function
 const startPrompt = async () => {
     let result = await inquirer.prompt(questions.start);
@@ -100,6 +101,9 @@ const addRole =  async () =>{
 
 async function addEmployee(){
     //WHEN I choose to add an employee, THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+    let result = await inquirer.prompt(questions.addEmployee);
+    insertEmployee(result);
+    console.log('New employee added')
 };
 
 async function updateRole(){
@@ -109,7 +113,6 @@ async function updateRole(){
 
 ///////////////         Init function           ///////////////
 async function init(){
-    // WHEN I start the application, THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role 
     let cont = true;
     while(cont === true){
         const results = await startPrompt();
@@ -136,7 +139,7 @@ async function init(){
                 await updateRole();
                 break;
             case 'Exit':
-                console.log(results.initalPrompt);
+                console.log('You have exited! Have a good day!');
                 cont = false;
                 break;
             default:
