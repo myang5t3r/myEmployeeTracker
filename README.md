@@ -15,7 +15,7 @@
   [![](https://img.shields.io/badge/license-GNU%20GPLv3-blue)](https://choosealicense.com/licenses/gpl-2.0/)
   ___
   ## Description
-  This application uses node.js, the inquirer module, the mysql2 modudle and the console.table module to create a employee tracker application. The inquirer cli will prompt the user a series of questions to create, update, and view employee information that is stored in a mysql database. The console.table module prints the mysql table nicely to the console. 
+  This application uses node.js, the inquirer module, the mysql2 module and the console.table module to create a employee tracker application. The inquirer cli will prompt the user a series of questions to create, update, and view employee information that is stored in a mysql database. The console.table module prints the mysql table nicely to the console. 
   ___
   ## Installation
   To install the project clone the repository and run npm install.
@@ -25,7 +25,7 @@
 
   ![Quick Glace - CLI](./assets/CLI_img.PNG)
 
-  Link to usage example here: [VIDEO](https://github.com/myang5t3r)
+  Link to usage example here: [VIDEO](https://drive.google.com/file/d/1buKSWFK6h33Vvby3BiXHFJwvYebi3UgE/view)
   ___
   ## Contributing
   Contribution to this project are welcome. Clone repository and customize to your liking.
