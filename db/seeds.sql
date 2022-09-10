@@ -18,7 +18,7 @@ VALUES ("Senior Software Engineer", 130000, 001),
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES ("Matt", "Yang", 001, NULL), 
        ("Scott", "Lee", 002, NULL),  
-       ("Jessica", "Moua", 005, NULL), 
+       ("Jessica", "Moua", 003, NULL), 
        ("Vanessa", "Yang", 004, NULL), 
        ("Jack", "Lee", 005, 001),
        ("Tommy", "Yang", 005, 001),
