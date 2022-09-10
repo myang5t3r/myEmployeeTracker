@@ -155,7 +155,6 @@ async function updateRole(){
 
 };
 
-
 ///////////////         Init function           ///////////////
 async function init(){
     let cont = true;

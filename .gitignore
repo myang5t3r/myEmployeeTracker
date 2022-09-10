@@ -106,3 +106,6 @@ dist
 
 # txt docs
 *.txt
+
+# Query testing
+test.sql
