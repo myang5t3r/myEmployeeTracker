@@ -1,9 +1,14 @@
 // Import modules/dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const {queryDepartments, queryEmployees, queryRoles, insertDepartment, insertRole, insertEmployee } = require('./lib/queries')
+const {queryDepartments, queryEmployees, queryRoles, insertDepartment, insertRole, insertEmployee, updateEmployee} = require('./lib/queries')
 
 ////////////////            Questions for inquirer          ///////////////
+// Global array for employee names
+const empArray = [];
+// Global array for roles
+const rolArray =[];
+
 const questions = {
     start: [{
         type: 'list',
@@ -58,9 +63,20 @@ const questions = {
         choices: ['Matt Yang', 'Scott Lee', 'Vanessa Yang', 'Jessica Moua']
         },
     ],
-    updateRole: [{
-        //TODO  Figure out how to dynamically add employee names to questions
-    }],
+    updateRole: [
+        {
+        type: 'list',
+        name: 'name',
+        message: "Which employee's role do you want to update?",
+        choices: empArray
+    },
+    {
+        type: 'list',
+        name: 'role',
+        message: 'Which role do you want to assign the selected employee?',
+        choices: rolArray
+    }
+    ],
 }
 
 //////////////          Functions               //////////////
@@ -100,7 +116,6 @@ const addRole =  async () =>{
 };
 
 async function addEmployee(){
-    //WHEN I choose to add an employee, THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
     let result = await inquirer.prompt(questions.addEmployee);
     insertEmployee(result);
     console.log('New employee added')
@@ -108,6 +123,36 @@ async function addEmployee(){
 
 async function updateRole(){
     //WHEN I choose to update an employee role, THEN I am prompted to select an employee to update and their new role and this information is updated in the database
+    // WE need the employee id so we can update the profile
+    // CAll queryEmployees to get list of all employees
+    const employees = await queryEmployees();
+    // put employees first name into array so we can prompt each name with inquirer
+    employees.forEach(Element => {
+        empArray.push(Element.first_name);
+    });
+
+    // Call queryRoles to get roles and add to questions in prompt
+    const roles = await queryRoles();
+    roles.forEach(Element =>{
+        rolArray.push(Element.title);
+    });
+    let emp = await inquirer.prompt(questions.updateRole);
+    console.log(emp.name);
+    console.log(emp.role);
+
+    // Things I need name, new role, new role_id,
+    // use new roll to get role_id
+    let newRole_id = ''
+    const rolesAgain = await queryRoles();
+    rolesAgain.forEach(Element => {
+        if (Element.title === emp.role){
+            console.log(Element)
+            newRole_id = Element.id;
+        }
+    })
+    console.log(newRole_id);
+    await updateEmployee(emp.name, newRole_id);
+
 };
 
 
