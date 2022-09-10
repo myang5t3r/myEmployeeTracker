@@ -117,12 +117,11 @@ const addRole =  async () =>{
 
 async function addEmployee(){
     let result = await inquirer.prompt(questions.addEmployee);
-    insertEmployee(result);
+    await insertEmployee(result);
     console.log('New employee added')
 };
 
 async function updateRole(){
-    //WHEN I choose to update an employee role, THEN I am prompted to select an employee to update and their new role and this information is updated in the database
     // WE need the employee id so we can update the profile
     // CAll queryEmployees to get list of all employees
     const employees = await queryEmployees();
@@ -137,8 +136,8 @@ async function updateRole(){
         rolArray.push(Element.title);
     });
     let emp = await inquirer.prompt(questions.updateRole);
-    console.log(emp.name);
-    console.log(emp.role);
+    // console.log(emp.name);
+    // console.log(emp.role);
 
     // Things I need name, new role, new role_id,
     // use new roll to get role_id
@@ -146,11 +145,11 @@ async function updateRole(){
     const rolesAgain = await queryRoles();
     rolesAgain.forEach(Element => {
         if (Element.title === emp.role){
-            console.log(Element)
+            // console.log(Element)
             newRole_id = Element.id;
         }
     })
-    console.log(newRole_id);
+    // console.log(newRole_id);
     await updateEmployee(emp.name, newRole_id);
 
 };
